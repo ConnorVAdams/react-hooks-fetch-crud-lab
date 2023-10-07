@@ -13,14 +13,18 @@ function App() {
     .then(data => setQuestions(data))
   }, [])
 
-  const onSubmit = (e) => {
-    e.preventDefault()
+  const onSubmit = (newQ) => {
+    setQuestions(updatedQs => [...updatedQs, newQ])
+  }
+
+  const onDelete = (id) => {
+    fetch(`http://localhost:4000/questions/${id}`)
   }
 
   return (
     <main>
       <AdminNavBar onChangePage={setPage} />
-      {page === "Form" ? <QuestionForm onSubmit={onSubmit} /> : <QuestionList questions={questions} />}
+      {page === "Form" ? <QuestionForm onSubmit={onSubmit} /> : <QuestionList handleDelete={onDelete} questions={questions} />}
     </main>
   );
 }
