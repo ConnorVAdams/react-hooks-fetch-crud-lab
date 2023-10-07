@@ -9,17 +9,27 @@ function QuestionItem({ question, handleDelete }) {
     </option>
   ));
 
+  const onDelete = (e) => {
+    fetch(`http://localhost:4000/questions/${e.target.parentNode.id}`, {
+      method: 'DELETE',
+    })
+    .then(resp => resp.json())
+    .then(() => handleDelete(parseInt(e.target.parentNode.id)))
+  }
+
   return (
-    <li>
+    <li id={id}>
       <h4>Question {id}</h4>
       <h5>Prompt: {prompt}</h5>
       <label>
         Correct Answer:
         <select defaultValue={correctIndex}>{options}</select>
       </label>
-      <button onClick={handleDelete}>Delete Question</button>
+      <button onClick={onDelete}>Delete Question</button>
     </li>
   );
 }
 
 export default QuestionItem;
+
+
