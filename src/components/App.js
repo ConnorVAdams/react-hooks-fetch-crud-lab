@@ -13,21 +13,30 @@ function App() {
     .then(data => setQuestions(data))
   }, [])
 
-  console.log(questions)
-
   const handleDelete = (id) => {
     const newQs = questions.filter(question => question.id !== id )
     setQuestions(newQs)
   }
 
-  const onSubmit = (newQ) => {
+  const handleSubmit = (newQ) => {
     setQuestions(updatedQs => [...updatedQs, newQ])
+  }
+
+  const handleUpdate = (updatedQ) => {
+    const updatedQs = questions.map(question => {
+      if (question.id === updatedQ.id) {
+        return updatedQ
+      } else {
+        return question
+      }
+    })
+    setQuestions(updatedQs)
   }
 
   return (
     <main>
       <AdminNavBar onChangePage={setPage} />
-      {page === "Form" ? <QuestionForm onSubmit={onSubmit} /> : <QuestionList handleDelete={handleDelete} questions={questions} />}
+      {page === "Form" ? <QuestionForm onSubmit={handleSubmit} /> : <QuestionList handleUpdate={handleUpdate} handleDelete={handleDelete} questions={questions} />}
     </main>
   );
 }

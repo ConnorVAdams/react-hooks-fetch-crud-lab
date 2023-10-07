@@ -1,9 +1,9 @@
 import QuestionItem from "./QuestionItem.js";
 
-function QuestionList({ questions, handleDelete }) {
+function QuestionList({ questions, handleDelete, handleUpdate }) {
 
   const currentList = questions.map(question => {
-    return <QuestionItem key={question.id} question={question} handleDelete={handleDelete} />
+    return <QuestionItem key={question.id} question={question} handleUpdate={handleUpdate} handleDelete={handleDelete} />
   })
 
   return (
